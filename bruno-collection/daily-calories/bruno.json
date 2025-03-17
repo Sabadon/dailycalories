@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "daily-calories",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

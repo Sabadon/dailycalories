@@ -1,0 +1,23 @@
+meta {
+  name: Create user
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{host}}/user
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Вася Пупкин",
+    "email": "email@gmail.com",
+    "age": 15,
+    "weight": 74,
+    "height": 156,
+    "gender": "MALE",
+    "goal": "LOSE"
+  }
+}
