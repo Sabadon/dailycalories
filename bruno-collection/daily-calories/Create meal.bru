@@ -1,0 +1,23 @@
+meta {
+  name: Create meal
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{host}}/api/user/1/meal
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "mealTime": "2025-03-18T12:32:55.181Z",
+    "dishes": [
+      {
+        "dishId": 1,
+        "portionSize": 250
+      }
+    ]
+  }
+}

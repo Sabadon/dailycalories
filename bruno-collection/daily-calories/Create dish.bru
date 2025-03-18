@@ -1,0 +1,21 @@
+meta {
+  name: Create dish
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{host}}/api/dish
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Борщ",
+    "caloriesPerPortion": 57.7,
+    "proteins": 3.8,
+    "fats": 2.9,
+    "carbs": 4.3
+  }
+}

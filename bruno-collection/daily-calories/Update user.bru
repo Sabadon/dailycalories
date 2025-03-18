@@ -1,0 +1,17 @@
+meta {
+  name: Update user
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{host}}/api/user/6
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "weight": 72
+  }
+}
