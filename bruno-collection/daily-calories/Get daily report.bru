@@ -1,0 +1,15 @@
+meta {
+  name: Get daily report
+  type: http
+  seq: 14
+}
+
+get {
+  url: {{host}}/api/user/1/reports/daily?date=2025-03-17
+  body: none
+  auth: none
+}
+
+params:query {
+  date: 2025-03-17
+}

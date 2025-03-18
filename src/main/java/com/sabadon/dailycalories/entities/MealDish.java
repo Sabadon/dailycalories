@@ -17,12 +17,12 @@ public class MealDish {
     @EmbeddedId
     private MealDishPk pk;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("mealId")
     @JoinColumn(name = "meal_id", nullable = false)
     private Meal meal;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("dishId")
     @JoinColumn(name = "dish_id", nullable = false)
     private Dish dish;

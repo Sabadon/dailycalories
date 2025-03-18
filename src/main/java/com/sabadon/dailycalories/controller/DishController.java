@@ -1,6 +1,6 @@
 package com.sabadon.dailycalories.controller;
 
-import com.sabadon.dailycalories.dto.DishDto;
+import com.sabadon.dailycalories.dto.dish.DishDto;
 import com.sabadon.dailycalories.dto.marker.OnCreate;
 import com.sabadon.dailycalories.service.DishService;
 import lombok.AllArgsConstructor;

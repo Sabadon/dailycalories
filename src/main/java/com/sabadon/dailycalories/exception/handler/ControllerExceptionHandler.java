@@ -1,6 +1,7 @@
 package com.sabadon.dailycalories.exception.handler;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -17,18 +18,20 @@ import java.util.Map;
 @RestControllerAdvice
 public class ControllerExceptionHandler {
 
-    @ExceptionHandler(EntityNotFoundException.class)
+    @ExceptionHandler({EntityNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<String> handleNotFound(final EntityNotFoundException ex) {
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<Map<String, String>> handleNotFound(final EntityNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", ex.getMessage()));
     }
 
+    //Todo писать ошибку в Map что бы формировалась в виде JSON
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
         if (ex.getCause() instanceof ConstraintViolationException) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Ошибка: Данный email уже используется.");
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ошибка базы данных: " + ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ошибка базы данных: " + ex.getMessage() +
+                "\n Stack:\n" + ExceptionUtils.getStackTrace(ex));
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

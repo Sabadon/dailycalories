@@ -9,12 +9,28 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
 @Table(name = "meals")
+@NamedEntityGraph(
+        name = "Meal.withDishesAndDetails",
+        attributeNodes = {
+                @NamedAttributeNode("user"),
+                @NamedAttributeNode(value = "mealDishes", subgraph = "mealDishesSubgraph")
+        },
+        subgraphs = {
+                @NamedSubgraph(
+                        name = "mealDishesSubgraph",
+                        attributeNodes = {
+                                @NamedAttributeNode("dish")
+                        }
+                )
+        }
+)
 public class Meal {
 
     @Id
@@ -39,16 +55,22 @@ public class Meal {
     @OneToMany(mappedBy = "meal", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MealDish> mealDishes = new ArrayList<>();
 
-    //TODO: сделать что бы при добавлении одного и того же блюда размер порции просто сумимировался
     public void addDish(Dish dish, Long portionSize) {
-        final MealDish md = new MealDish(
-                new MealDish.MealDishPk(getId(), dish.getId()),
-                this,
-                dish,
-                portionSize
-        );
-
-        mealDishes.add(md);
+        final Optional<MealDish> existedDish = mealDishes.stream()
+                .filter(md -> md.getDish().getId().equals(dish.getId()))
+                .findFirst();
+        if (existedDish.isPresent()) {
+            final MealDish md = existedDish.get();
+            md.setPortionSize(md.getPortionSize() + portionSize);
+        } else {
+            final MealDish md = new MealDish(
+                    new MealDish.MealDishPk(getId(), dish.getId()),
+                    this,
+                    dish,
+                    portionSize
+            );
+            mealDishes.add(md);
+        }
     }
 
     public void removeDish(Dish dish) {

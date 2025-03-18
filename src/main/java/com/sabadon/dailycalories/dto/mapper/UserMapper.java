@@ -1,7 +1,7 @@
 package com.sabadon.dailycalories.dto.mapper;
 
 import com.sabadon.dailycalories.entities.User;
-import com.sabadon.dailycalories.dto.UserDto;
+import com.sabadon.dailycalories.dto.user.UserDto;
 import org.mapstruct.*;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")

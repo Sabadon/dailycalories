@@ -1,4 +1,4 @@
-package com.sabadon.dailycalories.dto;
+package com.sabadon.dailycalories.dto.dish;
 
 import com.sabadon.dailycalories.dto.marker.OnCreate;
 import jakarta.validation.constraints.NotBlank;

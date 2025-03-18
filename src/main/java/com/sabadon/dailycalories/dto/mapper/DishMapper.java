@@ -1,6 +1,6 @@
 package com.sabadon.dailycalories.dto.mapper;
 
-import com.sabadon.dailycalories.dto.DishDto;
+import com.sabadon.dailycalories.dto.dish.DishDto;
 import com.sabadon.dailycalories.entities.Dish;
 import org.mapstruct.*;
 

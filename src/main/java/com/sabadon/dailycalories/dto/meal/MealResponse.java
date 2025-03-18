@@ -1,4 +1,4 @@
-package com.sabadon.dailycalories.dto;
+package com.sabadon.dailycalories.dto.meal;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

@@ -1,0 +1,15 @@
+meta {
+  name: Get All meals by date
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{host}}/api/user/1/meal?date=2025-03-17
+  body: none
+  auth: none
+}
+
+params:query {
+  date: 2025-03-17
+}

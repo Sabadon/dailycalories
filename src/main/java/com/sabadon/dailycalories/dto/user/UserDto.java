@@ -1,4 +1,4 @@
-package com.sabadon.dailycalories.dto;
+package com.sabadon.dailycalories.dto.user;
 
 import com.sabadon.dailycalories.dto.marker.OnCreate;
 import com.sabadon.dailycalories.enums.Gender;

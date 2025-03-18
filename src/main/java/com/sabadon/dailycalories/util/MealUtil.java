@@ -9,7 +9,7 @@ public class MealUtil {
 
     public static BigDecimal calculateMealDishCalories(MealDish md) {
         return md.getDish().getCaloriesPerPortion()
-                .divide(BigDecimal.valueOf(100),2, RoundingMode.HALF_UP)
+                .divide(BigDecimal.valueOf(100),4, RoundingMode.HALF_UP)
                 .multiply(BigDecimal.valueOf(md.getPortionSize()));
     }
 

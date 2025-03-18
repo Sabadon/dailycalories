@@ -1,10 +1,8 @@
 package com.sabadon.dailycalories.controller;
 
 
-import com.sabadon.dailycalories.dto.UserDto;
-import com.sabadon.dailycalories.dto.mapper.UserMapper;
+import com.sabadon.dailycalories.dto.user.UserDto;
 import com.sabadon.dailycalories.dto.marker.OnCreate;
-import com.sabadon.dailycalories.dto.marker.OnUpdate;
 import com.sabadon.dailycalories.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
