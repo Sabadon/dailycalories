@@ -44,7 +44,7 @@ public class DishService {
         return mapper.toDto(dish);
     }
 
-    private Dish tryFindDish(Long id) {
+    public Dish tryFindDish(Long id) {
         return dishRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Dish with id " + id + " not found"));
     }

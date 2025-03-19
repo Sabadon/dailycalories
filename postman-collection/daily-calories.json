@@ -1,0 +1,462 @@
+{
+  "info": {
+    "name": "daily-calories",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create dish",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": null,
+        "description": "",
+        "url": {
+          "raw": "{{host}}/api/dish",
+          "protocol": "",
+          "host": [
+            "{{host}}"
+          ],
+          "path": [
+            "api",
+            "dish"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Борщ\",\n  \"caloriesPerPortion\": 57.7,\n  \"proteins\": 3.8,\n  \"fats\": 2.9,\n  \"carbs\": 4.3\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Create meal with two same dish",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": null,
+        "description": "",
+        "url": {
+          "raw": "{{host}}/api/user/1/meal",
+          "protocol": "",
+          "host": [
+            "{{host}}"
+          ],
+          "path": [
+            "api",
+            "user",
+            "1",
+            "meal"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"mealTime\": \"2025-03-17T12:32:55.181Z\",\n  \"dishes\": [\n    {\n      \"dishId\": 1,\n      \"portionSize\": 250\n    },\n    {\n      \"dishId\": 1,\n      \"portionSize\": 250\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Create meal",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": null,
+        "description": "",
+        "url": {
+          "raw": "{{host}}/api/user/1/meal",
+          "protocol": "",
+          "host": [
+            "{{host}}"
+          ],
+          "path": [
+            "api",
+            "user",
+            "1",
+            "meal"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"mealTime\": \"2025-03-17T12:32:55.181Z\",\n  \"dishes\": [\n    {\n      \"dishId\": 1,\n      \"portionSize\": 200\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Create user",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": null,
+        "description": "",
+        "url": {
+          "raw": "{{host}}/api/user",
+          "protocol": "",
+          "host": [
+            "{{host}}"
+          ],
+          "path": [
+            "api",
+            "user"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Вася Пупкин\",\n  \"email\": \"email34@aboba.com\",\n  \"age\": 35,\n  \"weight\": 102,\n  \"height\": 175,\n  \"gender\": \"MALE\",\n  \"goal\": \"LOSE\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Delete meal by id",
+      "event": [],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "auth": null,
+        "description": "",
+        "url": {
+          "raw": "{{host}}/api/user/1/meal/1",
+          "protocol": "",
+          "host": [
+            "{{host}}"
+          ],
+          "path": [
+            "api",
+            "user",
+            "1",
+            "meal",
+            "1"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Delete user",
+      "event": [],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "auth": null,
+        "description": "",
+        "url": {
+          "raw": "{{host}}/api/user/2",
+          "protocol": "",
+          "host": [
+            "{{host}}"
+          ],
+          "path": [
+            "api",
+            "user",
+            "2"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Get All meals by date",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": null,
+        "description": "",
+        "url": {
+          "raw": "{{host}}/api/user/1/meal?date=2025-03-17",
+          "protocol": "",
+          "host": [
+            "{{host}}"
+          ],
+          "path": [
+            "api",
+            "user",
+            "1",
+            "meal?date=2025-03-17"
+          ],
+          "query": [
+            {
+              "key": "date",
+              "value": "2025-03-17"
+            }
+          ],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Get All meals",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": null,
+        "description": "",
+        "url": {
+          "raw": "{{host}}/api/user/1/meal",
+          "protocol": "",
+          "host": [
+            "{{host}}"
+          ],
+          "path": [
+            "api",
+            "user",
+            "1",
+            "meal"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Get daily report",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": null,
+        "description": "",
+        "url": {
+          "raw": "{{host}}/api/user/1/reports/daily?date=2025-03-17",
+          "protocol": "",
+          "host": [
+            "{{host}}"
+          ],
+          "path": [
+            "api",
+            "user",
+            "1",
+            "reports",
+            "daily?date=2025-03-17"
+          ],
+          "query": [
+            {
+              "key": "date",
+              "value": "2025-03-17"
+            }
+          ],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Get daily status report",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": null,
+        "description": "",
+        "url": {
+          "raw": "{{host}}/api/user/1/reports/daily-status?date=2025-03-17",
+          "protocol": "",
+          "host": [
+            "{{host}}"
+          ],
+          "path": [
+            "api",
+            "user",
+            "1",
+            "reports",
+            "daily-status?date=2025-03-17"
+          ],
+          "query": [
+            {
+              "key": "date",
+              "value": "2025-03-17"
+            }
+          ],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Get history report",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": null,
+        "description": "",
+        "url": {
+          "raw": "{{host}}/api/user/1/reports/history",
+          "protocol": "",
+          "host": [
+            "{{host}}"
+          ],
+          "path": [
+            "api",
+            "user",
+            "1",
+            "reports",
+            "history"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Get meal by id",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": null,
+        "description": "",
+        "url": {
+          "raw": "{{host}}/api/user/1/meal/1",
+          "protocol": "",
+          "host": [
+            "{{host}}"
+          ],
+          "path": [
+            "api",
+            "user",
+            "1",
+            "meal",
+            "1"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Get user",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": null,
+        "description": "",
+        "url": {
+          "raw": "{{host}}/api/user/1",
+          "protocol": "",
+          "host": [
+            "{{host}}"
+          ],
+          "path": [
+            "api",
+            "user",
+            "1"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Update meal",
+      "event": [],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "auth": null,
+        "description": "",
+        "url": {
+          "raw": "{{host}}/api/user/1/meal/1",
+          "protocol": "",
+          "host": [
+            "{{host}}"
+          ],
+          "path": [
+            "api",
+            "user",
+            "1",
+            "meal",
+            "1"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"mealTime\": \"2025-03-17T12:32:55.181Z\",\n  \"dishes\": [\n    {\n      \"dishId\": 1,\n      \"portionSize\": 250\n    },\n    {\n      \"dishId\": 1,\n      \"portionSize\": 250\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Update user",
+      "event": [],
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "auth": null,
+        "description": "",
+        "url": {
+          "raw": "{{host}}/api/user/1",
+          "protocol": "",
+          "host": [
+            "{{host}}"
+          ],
+          "path": [
+            "api",
+            "user",
+            "1"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"weight\": -72\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "bruno",
+      "event": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "host",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 package com.sabadon.dailycalories.dto.user;
 
 import com.sabadon.dailycalories.dto.marker.OnCreate;
+import com.sabadon.dailycalories.dto.marker.OnUpdate;
 import com.sabadon.dailycalories.enums.Gender;
 import com.sabadon.dailycalories.enums.Goal;
 import jakarta.validation.constraints.*;
@@ -11,18 +12,18 @@ public record UserDto(Long id,
                       @NotBlank(groups = OnCreate.class, message = "Имя не может быть пустым")
                       String name,
                       @NotBlank(groups = OnCreate.class, message = "Почта не может быть пустой")
-                      @Email(message = "Неккоректный формат email")
+                      @Email(groups = {OnCreate.class, OnUpdate.class}, message = "Неккоректный формат email")
                       String email,
                       @NotNull(groups = OnCreate.class, message = "Возраст не должен быть пустым")
-                      @Positive(message = "Возраст должен быть положительным")
-                      @Min(value = 10, message = "Возраст должен быть больше 10")
-                      @Max(value = 120, message = "Возраст должен быть меньше 120")
+                      @Positive(groups = {OnCreate.class, OnUpdate.class}, message = "Возраст должен быть положительным")
+                      @Min(groups = {OnCreate.class, OnUpdate.class}, value = 10, message = "Возраст должен быть больше 10")
+                      @Max(groups = {OnCreate.class, OnUpdate.class}, value = 120, message = "Возраст должен быть меньше 120")
                       Integer age,
                       @NotNull(groups = OnCreate.class, message = "Вес не должен быть пустым")
-                      @Positive(message = "Вес должен быть положительным")
+                      @Positive(groups = {OnCreate.class, OnUpdate.class}, message = "Вес должен быть положительным")
                       BigDecimal weight,
                       @NotNull(groups = OnCreate.class, message = "Рост не должен быть пустым")
-                      @Positive(message = "Рост должен быть положительным")
+                      @Positive(groups = {OnCreate.class, OnUpdate.class}, message = "Рост должен быть положительным")
                       BigDecimal height,
                       @NotNull(groups = OnCreate.class, message = "Пол не должен быть пустым")
                       Gender gender,

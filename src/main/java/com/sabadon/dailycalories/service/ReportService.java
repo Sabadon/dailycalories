@@ -28,12 +28,10 @@ public class ReportService {
 
     public DailyReportResponse getDailyReport(Long userId, LocalDate date) {
         final List<MealResponse> meals = mealService.getAllUserMealsFromDate(userId, date);
+        final BigDecimal totalCalories = getTotalCalories(meals);
         final List<DailyReportResponse.MealItem> mealItems = meals.stream()
                 .map(mealItemMapper::toMealItem)
                 .toList();
-        final BigDecimal totalCalories = mealItems.stream()
-                .map(DailyReportResponse.MealItem::totalCalories)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         return new DailyReportResponse(
                 date,
@@ -46,15 +44,19 @@ public class ReportService {
     public DailyCalorieStatusResponse getDailyCalorieStatus(Long userId, LocalDate date) {
         final User user = userService.tryFindUser(userId);
         final List<MealResponse> meals = mealService.getAllUserMealsFromDate(userId, date);
-        final BigDecimal totalCalories = meals.stream()
-                .map(MealResponse::totalCalories)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        final BigDecimal totalCalories = getTotalCalories(meals);
         return new DailyCalorieStatusResponse(
                 date,
                 user.getDailyCalories(),
                 totalCalories,
                 totalCalories.compareTo(user.getDailyCalories()) > 0
         );
+    }
+
+    private static BigDecimal getTotalCalories(List<MealResponse> meals) {
+        return meals.stream()
+                .map(MealResponse::totalCalories)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public DailyHistoryResponse getDailyHistory(Long userId, Pageable pageable) {

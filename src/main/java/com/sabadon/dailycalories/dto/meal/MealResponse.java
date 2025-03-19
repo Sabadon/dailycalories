@@ -12,7 +12,7 @@ public record MealResponse(
 ) {
     public record MealDishResponse(
             String name,
-            BigDecimal portionSize,
+            Long portionSize,
             BigDecimal calories
     ) {
     }

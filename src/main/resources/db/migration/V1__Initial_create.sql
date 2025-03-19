@@ -36,3 +36,5 @@ CREATE TABLE meal_dishes (
     portion_size BIGINT CHECK (portion_size > 0),
     PRIMARY KEY (meal_id, dish_id)
 );
+
+CREATE INDEX idx_meals_user_meal_time ON meals(user_id, meal_time);

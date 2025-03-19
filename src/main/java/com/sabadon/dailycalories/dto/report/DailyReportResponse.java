@@ -19,7 +19,7 @@ public record DailyReportResponse(
     }
     public record MealDishItem(
             String name,
-            BigDecimal portionSize,
+            Long portionSize,
             BigDecimal calories
     ) {
     }

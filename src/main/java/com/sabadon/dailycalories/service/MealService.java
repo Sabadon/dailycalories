@@ -28,8 +28,8 @@ import java.util.List;
 public class MealService {
 
     private UserService userService;
+    private DishService dishService;
     private MealRepository mealRepository;
-    private DishRepository dishRepository;
     private MealMapper mealMapper;
 
     @Transactional
@@ -109,8 +109,7 @@ public class MealService {
 
     private void addAllDishesToMeal(List<MealRequest.MealDishRequest> dishes, Meal meal) {
         dishes.forEach(mealDishRequest -> {
-            final Dish dish = dishRepository.findById(mealDishRequest.dishId())
-                    .orElseThrow(() -> new EntityNotFoundException("Dish with id " + mealDishRequest.dishId() + " not found"));
+            final Dish dish = dishService.tryFindDish(mealDishRequest.dishId());
 
             meal.addDish(dish, mealDishRequest.portionSize());
         });

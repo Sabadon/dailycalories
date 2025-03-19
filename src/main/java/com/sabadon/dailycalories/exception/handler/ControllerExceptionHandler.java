@@ -1,6 +1,8 @@
 package com.sabadon.dailycalories.exception.handler;
 
+import com.sabadon.dailycalories.dto.error.ApiErrorResponse;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,35 +18,44 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
+@Slf4j
 public class ControllerExceptionHandler {
 
     @ExceptionHandler({EntityNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<Map<String, String>> handleNotFound(final EntityNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", ex.getMessage()));
-    }
-
-    //Todo писать ошибку в Map что бы формировалась в виде JSON
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
-        if (ex.getCause() instanceof ConstraintViolationException) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Ошибка: Данный email уже используется.");
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ошибка базы данных: " + ex.getMessage() +
-                "\n Stack:\n" + ExceptionUtils.getStackTrace(ex));
+    public ApiErrorResponse handleNotFound(final EntityNotFoundException ex) {
+        return new ApiErrorResponse("NOT_FOUND", ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(
-            MethodArgumentNotValidException ex) {
+    public ApiErrorResponse handleValidationExceptions(MethodArgumentNotValidException ex) {
         final Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach(error -> {
-            final String fieldName = ((FieldError) error).getField();
-            final String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return errors;
+        ex.getBindingResult().getFieldErrors().forEach(error ->
+                errors.put(error.getField(), error.getDefaultMessage())
+        );
+        return new ApiErrorResponse("VALIDATION_FAILED", "Invalid request data", errors);
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ApiErrorResponse handleDataIntegrityViolation(DataIntegrityViolationException ex) {
+        final String rootMsg = ex.getRootCause().getMessage();
+        if (rootMsg.contains("users_email_key")) {
+            return new ApiErrorResponse(
+                    "DUPLICATE_EMAIL",
+                    "Email already exists"
+            );
+        }
+        log.error("Unexpected data conflict: ", ex);
+        return new ApiErrorResponse("DATA_CONFLICT", "Database error");
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    public ApiErrorResponse handleAllExceptions(Exception ex) {
+        log.error("Unexpected error: ", ex);
+        return new ApiErrorResponse("INTERNAL_ERROR", "Internal server error");
     }
 
 }
