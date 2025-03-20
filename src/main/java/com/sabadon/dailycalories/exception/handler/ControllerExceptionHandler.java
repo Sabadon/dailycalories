@@ -1,6 +1,7 @@
 package com.sabadon.dailycalories.exception.handler;
 
 import com.sabadon.dailycalories.dto.error.ApiErrorResponse;
+import com.sabadon.dailycalories.enums.ApiErrorCode;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -24,7 +25,7 @@ public class ControllerExceptionHandler {
     @ExceptionHandler({EntityNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ApiErrorResponse handleNotFound(final EntityNotFoundException ex) {
-        return new ApiErrorResponse("NOT_FOUND", ex.getMessage());
+        return new ApiErrorResponse(ApiErrorCode.NOT_FOUND, ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -34,7 +35,7 @@ public class ControllerExceptionHandler {
         ex.getBindingResult().getFieldErrors().forEach(error ->
                 errors.put(error.getField(), error.getDefaultMessage())
         );
-        return new ApiErrorResponse("VALIDATION_FAILED", "Invalid request data", errors);
+        return new ApiErrorResponse(ApiErrorCode.VALIDATION_FAILED, "Invalid request data", errors);
     }
 
     @ResponseStatus(HttpStatus.CONFLICT)
@@ -43,19 +44,19 @@ public class ControllerExceptionHandler {
         final String rootMsg = ex.getRootCause().getMessage();
         if (rootMsg.contains("users_email_key")) {
             return new ApiErrorResponse(
-                    "DUPLICATE_EMAIL",
+                    ApiErrorCode.DUPLICATE_EMAIL,
                     "Email already exists"
             );
         }
         log.error("Unexpected data conflict: ", ex);
-        return new ApiErrorResponse("DATA_CONFLICT", "Database error");
+        return new ApiErrorResponse(ApiErrorCode.DATA_CONFLICT, "Database error");
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ApiErrorResponse handleAllExceptions(Exception ex) {
         log.error("Unexpected error: ", ex);
-        return new ApiErrorResponse("INTERNAL_ERROR", "Internal server error");
+        return new ApiErrorResponse(ApiErrorCode.INTERNAL_ERROR, "Internal server error");
     }
 
 }
